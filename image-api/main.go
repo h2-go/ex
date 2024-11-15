@@ -1,20 +1,24 @@
 package main
 
 import (
-  "fmt"
-  "github.com/gin-gonic/gin"
+	"fmt"
+
+	"github.com/gin-gonic/gin"
 )
 
 func router() *gin.Engine {
-  r := gin.Default()
-  r.GET("/:name", func(c *gin.Context) {
-    user := c.Param("name")
-    c.String(200, fmt.Sprintf("Hello, %s", user))
-  })
+	r := gin.Default()
+	userRoute := r.Group("/user")
+	{
+		userRoute.GET("/hello/:name", func(c *gin.Context) {
+			user := c.Param("name")
+			c.String(200, fmt.Sprintf("Hello, %s", user))
+		})
+	}
 
-  return r
+	return r
 }
 
 func main() {
-  router().Run()
+	router().Run()
 }
