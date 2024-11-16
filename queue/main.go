@@ -7,7 +7,7 @@ import (
 )
 
 func mainCh(nTask int) {
-	chs := make(chan string, nTask)
+	chs := make(chan string)
 
 	for i := 0; i < nTask; i++ {
 		go JobCh(i, chs)
@@ -19,7 +19,7 @@ func mainCh(nTask int) {
 }
 
 func mainQueue(nTask int) {
-	chs := make(chan string, nTask)
+	chs := make(chan string)
 	q := queue.NewPool(nTask)
 	defer q.Release()
 
